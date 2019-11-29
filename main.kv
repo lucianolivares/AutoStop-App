@@ -1,0 +1,81 @@
+#:include kv/login/loginscreen.kv
+#:include kv/login/createscreen.kv
+#:include kv/login/addcar.kv
+#:include kv/passenger/mainpassenger.kv
+#:include kv/passenger/infotrip.kv
+#:include kv/passenger/accountsettings.kv
+#:include kv/passenger/addrequest.kv
+#:include kv/passenger/changeavatarscreen.kv
+#:include kv/driver/driverscreen.kv
+#:include kv/driver/addavailabledriver.kv
+
+# Predetermine APP Widgets
+<Label>:
+    color: utils.get_color_from_hex("0b0b0b")
+<Button>:
+    background_color: utils.get_color_from_hex("0B486B")
+    background_normal: ""
+    color: utils.get_color_from_hex("fafbfd")
+    font_name: "resources/font/CaviarDreams.ttf"
+    font_size: 30
+<LabelTitle@Label>
+    color: utils.get_color_from_hex("0B486B")
+    font_name: "resources/font/Cream peach.ttf"
+    font_size: 40
+<TextInput>:
+    halign: "center"
+    multiline: False
+
+# Principal Layout
+# Predetermine background color app
+FloatLayout:
+    canvas:
+        Color:
+            rgb: utils.get_color_from_hex("a2a2a0")
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    # Predetermine Top Bar
+    FloatLayout:
+        canvas:
+            Color:
+                rgb: utils.get_color_from_hex("f4f4f4")
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        # Logo y Título
+        pos_hint: {"x": 0, "top": 1}
+        size_hint: 1, 0.08
+    # Screens
+    ScreenManager:
+        id: screen_manager
+        LoginScreen:
+            name: "login_screen"
+            id: login_screen
+        CreateScreen:
+            name: "create_screen"
+            id: create_screen
+        AddCar:
+            name: "add_car"
+            id: add_car
+        MainPassenger:
+            name: "main_passenger"
+            id: main_passenger
+        InfoTrip:
+            name: "info_trip"
+            id: info_trip
+        AccountSettings:
+            name: "account_settings"
+            id: account_settings
+        AddRequest:
+            name: "add_request"
+            id: add_request
+        ChangeAvatarScreen:
+            name: "change_avatar_screen"
+            id: change_avatar_screen
+        DriverScreen:
+            name: "driver_screen"
+            id: driver_screen
+        AddAvailableDriver:
+            name: "add_available_driver"
+            id: add_available_driver
