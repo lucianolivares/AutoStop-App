@@ -1,0 +1,118 @@
+<AccountSettings>:
+    FloatLayout:
+        # Back y Título
+        FloatLayout:
+            pos_hint: {"x": 0, "top": 1}
+            size_hint: 1, 0.08
+            ImageButton:
+                pos_hint: {"x": 0.02, "top": 0.8}
+                size_hint: 0.2, 0.6
+                source: "resources/icons/back.png"
+                on_release:
+                    app.change_screen("main_passenger") if root.mode == "passenger" else app.change_screen("driver_screen")
+                    root.manager.transition.direction = "right"
+            LabelTitle:
+                id: label_title
+                pos_hint: {"x": 0.2, "top": 1}
+                size_hint: 0.6, 1
+                text: "Account Settings"
+        # Avatar, name and email
+        FloatLayout:
+            canvas:
+                Color:
+                    rgb: utils.get_color_from_hex("fafbfd")
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            pos_hint: {"x": 0, "top": 0.918}
+            size_hint: 1, 0.2
+            ImageButton:
+                id: avatar_setting
+                pos_hint: {"x": 0.15, "top": 1}
+                size_hint: 0.2, 1
+                on_release:
+                    app.change_screen("change_avatar_screen")
+                    root.manager.transition.direction = "left"
+            Image:
+                # Lápiz de edit
+                source: "resources/icons/edit.png"
+                pos_hint: {"x": 0.12, "top": .7}
+                size_hint: 0.1, 0.2
+            Label:
+                id: name
+                pos_hint: {"x": 0.45, "top": 1}
+                size_hint: 0.3, 1
+                font_size: 20
+                halign: "center"
+        # Edit cel and pass, switch mode and logout
+        FloatLayout:
+            canvas:
+                Color:
+                    rgb: utils.get_color_from_hex("fafbfd")
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            pos_hint: {"x": 0, "top": 0.716}
+            size_hint: 1, 0.79
+            Label:
+                text: "Celular:"
+                pos_hint: {"x": 0.2, "top": 1}
+                size_hint: 0.2, 0.05
+            LabelButton:
+                id: cel
+                color: utils.get_color_from_hex("#000000")
+                pos_hint: {"x": 0.2, "top": 1}
+                size_hint: 0.6, 0.1
+                font_size: 20
+                on_release:
+                    app.change_screen("")
+                    root.manager.transition.direction = "left"
+            Label:
+                pos_hint: {"x": 0.2, "top": .9}
+                size_hint: 0.2, 0.05
+                text: "Contraseña:"
+            LabelButton:
+                id: password
+                password: True
+                color: utils.get_color_from_hex("#000000")
+                pos_hint: {"x": 0.2, "top": .9}
+                size_hint: 0.6, 0.1
+                font_size: 20
+                text: "********"
+                on_release:
+                    app.change_screen("")
+                    root.manager.transition.direction = "left"
+            GridLayout:
+                size_hint: 1, 0.2
+                pos_hint: {"x": 0, "top": .8}
+                cols: 3
+                LabelButton:
+                    id: passenger_button
+                    text: "[u]Pasajero[/u]"
+                    markup: True
+                    color: (0,0,0,1)
+                    on_release:
+                        passenger_button.color = (0,0,0,1)
+                        driver_button.color = (1,0,0,1)
+                        image_reloj.source = "resources/icons/reloj_pasajero.png"
+                        root.change_mode("passenger")
+                Image:
+                    id: image_reloj
+                    source: "resources/icons/reloj_pasajero.png"
+                LabelButton:
+                    id: driver_button
+                    text: "[u]Conductor[/u]"
+                    markup: True
+                    color: (1,0,0,1)
+                    on_release:
+                        driver_button.color = (0,0,0,1)
+                        passenger_button.color = (1,0,0,1)
+                        image_reloj.source = "resources/icons/reloj_driver.png"
+                        root.change_mode("driver")
+            ImageButton:
+                pos_hint: {"x": 0.46, "top": 0.5}
+                size_hint: 0.08, 0.08
+                source: "resources/icons/logout.png"
+                on_release:
+                    app.sign_out_user()
+                    root.manager.transition.direction = "left"

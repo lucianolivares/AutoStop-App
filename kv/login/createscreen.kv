@@ -1,0 +1,113 @@
+<CreateScreen>:
+    FloatLayout:
+        # Back Button and Title
+        FloatLayout:
+            pos_hint: {"x": 0, "top": 1}
+            size_hint: 1, 0.08
+            ImageButton:
+                pos_hint: {"x": 0.02, "top": 0.8}
+                size_hint: 0.2, 0.6
+                source: "resources/icons/back.png"
+                on_release:
+                    root.manager.transition.direction = "left"
+                    app.change_screen("login_screen")
+            LabelTitle:
+                pos_hint: {"x": 0.2, "top": 1}
+                size_hint: 0.6, 1
+                text: "Registrarse"
+        #Body (Labels and Buttons)
+        FloatLayout:
+            canvas:
+                Color:
+                    rgb: utils.get_color_from_hex("FAFBFD")
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            pos_hint: {"x": 0, "top": 0.916}
+            size_hint: 1, 0.918
+            # Labels and TextInputs
+            GridLayout:
+                rows:1
+                pos_hint: {"x": 0.1, "top": .95,}
+                size_hint: 0.8, 0.7
+
+                GridLayout:
+                    rows: 9
+                    spacing: 10
+                    size_hint_x: 0.3
+                    Label:
+                        text: "Nombre:"
+                    Label:
+                        text: "Apellido:"
+                    Label:
+                        text: "Alias:"
+                    Label:
+                        text: "Email:"
+                    Label:
+                        text: "Contraseña:"
+                    Label:
+                        text: "Confirmar\nContraseña:"
+                    Label:
+                        text: "Celular:"
+                    Label:
+                        text: "Domicilio:"
+                    Label:
+                        text: "Comuna:"
+                # TextInputs
+                BoxLayout:
+                    orientation: "vertical"
+                    spacing: 10
+                    TextInput:
+                        id: user_name
+                        hint_text: "Nombre"
+                        focus: True
+                        on_text_validate: last_name.focus = True
+                    TextInput:
+                        id: last_name
+                        hint_text: "Apellido"
+                        on_text_validate: alias.focus = True
+                    TextInput:
+                        id: alias
+                        hint_text: "Alias"
+                        on_text_validate: email.focus = True
+                    TextInput:
+                        id: email
+                        hint_text: "ejemplo@correo.com"
+                        on_text_validate: password.focus = True
+                    TextInput:
+                        id: password
+                        password: True
+                        hint_text: "********"
+                        on_text_validate: password_confirm.focus = True
+                    TextInput:
+                        id: password_confirm
+                        password: True
+                        hint_text: "********"
+                        on_text_validate: cel.focus = True
+                    TextInput:
+                        id: cel
+                        hint_text: "976434624"
+                        on_text_validate: address.focus = True
+                    TextInput:
+                        id: address
+                        hint_text: "Calle"
+                        on_text_validate: comuna.focus = True
+                    TextInput:
+                        id: comuna
+                        hint_text: "La Serena"
+            # Add Car Button
+            ImageButton:
+                source: "resources/icons/car-1.png"
+                pos_hint: {"top": 0.15, "x": 0.1}
+                size_hint: 0.2, 0.1
+                on_release:
+                    app.change_screen("add_car")
+                    root.manager.transition.direction = "right"
+            # Botón Ok
+            ImageButton:
+                source: "resources/icons/forward.png"
+                pos_hint: {"top": 0.15, "x": 0.7}
+                size_hint: 0.2, 0.1
+                on_release:
+                    app.my_firebase.sign_up(email.text, password.text, user_name.text, last_name.text, alias.text, cel.text, address.text, comuna.text)
+                    root.manager.transition.direction = "left"

@@ -1,0 +1,56 @@
+<MainPassenger>:
+    FloatLayout:
+        # Settings y Título
+        FloatLayout:
+            pos_hint: {"x": 0, "top": 1}
+            size_hint: 1, 0.08
+            ImageButton:
+                pos_hint: {"x": 0.02, "top": 0.8}
+                size_hint: 0.2, 0.6
+                source: "resources/icons/settings.png"
+                on_release:
+                    app.change_screen("account_settings")
+                    root.manager.transition.direction = "left"
+            LabelTitle:
+                pos_hint: {"x": 0.2, "top": 1}
+                size_hint: 0.6, 1
+                text: "Viajes Disponibles"
+        #Body
+        FloatLayout:
+            canvas:
+                Color:
+                    rgb: utils.get_color_from_hex("fafbfd")
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            pos_hint: {"x": 0, "top": 0.918}
+            size_hint: 1, 0.918
+            # Available Drivers Grid
+            ScrollView:
+                pos_hint: {"x": 0, "top": 1}
+                size_hint: 1, 0.9
+                GridLayout:
+                    cols: 1
+                    id: banner_grid
+                    spacing: 10, 10
+                    size_hint_y: None
+                    height: self.minimum_height
+                    row_default_height: 100
+                    row_force_default: True
+            # Button Add Request
+            FloatLayout:
+                canvas:
+                    Color:
+                        rgb: utils.get_color_from_hex("0B486B")
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                pos_hint: {"x": 0, "top": 0.1}
+                size_hint: 1, 0.1
+                Button:
+                    pos_hint: {"x": 0.1, "top": .9}
+                    size_hint: 0.8, 0.8
+                    text: "Añadir Solicitud"
+                    on_release:
+                        app.change_screen("add_request")
+                        root.manager.transition.direction = "left"

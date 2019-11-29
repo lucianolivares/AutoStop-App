@@ -1,0 +1,82 @@
+<AddAvailableDriver>:
+    # Back y Título
+    FloatLayout:
+        FloatLayout:
+            pos_hint: {"x": 0, "top": 1}
+            size_hint: 1, 0.08
+            ImageButton:
+                pos_hint: {"x": 0.02, "top": 0.8}
+                size_hint: 0.2, 0.6
+                source: "resources/icons/back.png"
+                on_release:
+                    app.change_screen("driver_screen")
+                    root.manager.transition.direction = "right"
+            LabelTitle:
+                pos_hint: {"x": 0.2, "top": 1}
+                size_hint: 0.6, 1
+                text: "Añadir Viaje"
+        #Body
+        FloatLayout:
+            canvas:
+                Color:
+                    rgb: utils.get_color_from_hex("fafbfd")
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            pos_hint: {"x": 0, "top": 0.916}
+            size_hint: 1, 0.918
+            # Grid Label and TextInputs
+            GridLayout:
+                rows:1
+                pos_hint: {"x": 0.1, "top": .95}
+                size_hint: 0.8, 0.27
+                spacing: 50
+                # Labels
+                GridLayout:
+                    rows: 4
+                    spacing: 10
+                    size_hint_x: 0.3
+                    Label:
+                        text: "Desde:"
+                    Label:
+                        text: "Para:"
+                    Label:
+                        text: "Hora:"
+                    Label:
+                        text: "Asientos\nDisponibles:"
+                # TextInputs
+                BoxLayout:
+                    orientation: "vertical"
+                    spacing: 10
+                    TextInput:
+                        id: desde
+                        hint_text: "Andacollo"
+                        on_text:
+                            self.background_color = (1,1,1,1)
+                    TextInput:
+                        id: para
+                        hint_text: "La Serena"
+                        on_text:
+                            self.background_color = (1,1,1,1)
+                    TextInput:
+                        id: hora
+                        hint_text: "13:00"
+                        on_text:
+                            self.background_color = (1,1,1,1)
+                    TextInput:
+                        id: available_seats
+                        hint_text: "2"
+                        on_text:
+                            self.background_color = (1,1,1,1)
+            # Confirm Request
+            LabelButton:
+                color: utils.get_color_from_hex("#000000")
+                font_name: "resources/font/CaviarDreams.ttf"
+                font_size: 30
+                text: "Añadir Viaje"
+                size_hint: 1, 0.2
+                pos_hint: {"x": 0, "top": .7}
+                on_release:
+                    app.add_available_driver()
+                    app.change_screen("driver_screen")
+                    root.manager.transition.direction = "right"

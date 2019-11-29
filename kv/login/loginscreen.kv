@@ -1,0 +1,74 @@
+#:import utils kivy.utils
+<LoginScreen>:
+    email: email
+    password: password
+    FloatLayout:
+        #Título
+        FloatLayout:
+            pos_hint: {"x": 0, "top": 1}
+            size_hint: 1, 0.08
+            LabelTitle:
+                pos_hint: {"x": 0, "top": 1}
+                size_hint: 1, 1
+                text: "Ingresar"
+        #Body
+        FloatLayout:
+            canvas:
+                Color:
+                    rgb: utils.get_color_from_hex("FAFBFD")
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            pos_hint: {"x": 0, "top": 0.918}
+            size_hint: 1, 0.918
+            # Logo APP
+            Image:
+                pos_hint: {"top": 0.95, "left": 1}
+                size_hint: 1, 0.2
+                source: "resources/icons/logo2.jpeg"
+            # Email, pass and forget pass
+            GridLayout:
+                rows: 3
+                spacing: 10
+                pos_hint: {"top": 0.7, "x": 0.25}
+                size_hint: 0.5, 0.15
+                TextInput:
+                    id: email
+                    hint_text: "Email"
+                    on_text_validate: password.focus = True
+                TextInput:
+                    id: password
+                    hint_text: "Contraseña"
+                    password: True
+                LabelButton:
+                    color: utils.get_color_from_hex("#000000")
+                    text: "Olvidaste tu Contraseña? Recordar"
+                    size_hint: 1, 0.2
+                    on_release:
+                        app.change_screen("")
+                        root.manager.transition.direction = "left"
+            # Login and Register Button
+            GridLayout:
+                rows: 2
+                pos_hint: {"top": 0.5, "x": 0.25}
+                size_hint: 0.5, 0.15
+                spacing: 10
+                Button:
+                    text: "Iniciar"
+                    markup: True
+                    on_release:
+                        app.my_firebase.sign_in_existing_user(email.text, password.text)
+                LabelButton:
+                    color: utils.get_color_from_hex("#000000")
+                    text: "¿ No tienes una cuenta ? Registrar"
+                    size_hint: 1, 0.2
+                    on_release:
+                        app.change_screen("create_screen")
+                        root.manager.transition.direction = "right"
+            Label:
+                id: login_message
+                pos_hint: {"top": 0.3, "x": 0.25}
+                size_hint: 0.5, 0.15
+                color: (1,0,0,1)
+
+

@@ -1,0 +1,38 @@
+<ChangeAvatarScreen>:
+    FloatLayout:
+        #Título
+        FloatLayout:
+            pos_hint: {"x": 0, "top": 1}
+            size_hint: 1, 0.08
+            ImageButton:
+                pos_hint: {"x": 0.02, "top": 0.8}
+                size_hint: 0.2, 0.6
+                source: "resources/icons/back.png"
+                on_release:
+                    app.change_screen("account_settings")
+                    root.manager.transition.direction = "left"
+            LabelTitle:
+                pos_hint: {"x": 0, "top": 1}
+                size_hint: 1, 1
+                text: "Cambiar Avatar"
+        # Body avatar grid
+        FloatLayout:
+            canvas:
+                Color:
+                    rgb: utils.get_color_from_hex("fafbfd")
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            pos_hint: {"x": 0, "top":.918}
+            size_hint: 1, .918
+            #Avatar Scroll Grid
+            ScrollView:
+                GridLayout:
+                    cols: 3
+                    id: avatar_grid
+                    size_hint_y: None
+                    height: self.minimum_height
+                    row_default_height: '100dp'
+                    row_force_default: True
+                    spacing: 20, 20
+                    padding: 20, 20
